@@ -17,4 +17,7 @@ use App\Http\Controllers\Auth\LoginController;
 */
 
 Route::post('login', [LoginController::class, 'loginAPI']);
+Route::post('directbeers', [LoginController::class, 'getbeers']);
+
 Route::middleware('auth:api')->get('beers', [HomeController::class, 'getBeers']);
+
