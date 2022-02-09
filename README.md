@@ -1,5 +1,7 @@
 <div>
    <p> Database file is: taskApp.sql </p>
+    
+      <p> I have used Laravel Passport for this Application </p>
 
 <p> Application has web Routes and api Routes.</p>
 <p> email:admin@gmail.com </p>
