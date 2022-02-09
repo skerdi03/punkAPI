@@ -25,6 +25,10 @@ class HomeController extends Controller
         return Http::get($url);
     }
 
+    public function test(Request $request){
+        return response(["user" => 1]);
+    }
+
     /**
      * Show the application dashboard.
      *
@@ -45,5 +49,15 @@ class HomeController extends Controller
         
         Session::flash('error', "LAST API CALL HAS A PROBLEM");
         return redirect('home');
+    }
+    
+    public function getBeers(Request $req){
+        $current_page = $req->page ?? 1;
+        $per_page = $req->per_page ?? 5;
+        $response = $this->APICALL($current_page, $per_page);
+        if($response->status() == 200){
+            return response($response->collect());
+        }
+        return response("Error during API CALL");
     }
 }

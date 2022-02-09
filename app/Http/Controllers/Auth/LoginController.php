@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -37,4 +38,18 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    public function loginAPI(Request $req){
+        $email = $req->email;
+        $password = $req->password;
+        $login = $req->validate([
+            'email' => 'required|string',
+            'password' => 'required|string'
+        ]);
+        if(!auth()->attempt($login)){
+            return response("This User Do No Exist");
+        }
+        $user = auth()->user();
+        $accessToken =  $user->createToken('authToken')->accessToken;
+        return response(["user" =>  $user, "access_token" => $accessToken]);
+    }   
 }
